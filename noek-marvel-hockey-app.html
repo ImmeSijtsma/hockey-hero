@@ -1,0 +1,4255 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1,
+maximum-scale=1,
+viewport-fit=cover">
+
+<meta name="theme-color" content="#07101f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hockey Hero">
+
+<title>Hockey Hero 🏑</title>
+
+<style>
+
+/* =====================================================
+   BASIS
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --bg: #07101f;
+    --bg2: #0c172b;
+    --card: #111e34;
+    --card2: #172640;
+
+    --red: #ed3b3b;
+    --red2: #ff5d55;
+
+    --blue: #2d8cff;
+    --yellow: #ffd83d;
+    --green: #37d98a;
+
+    --white: #ffffff;
+    --muted: #93a2bb;
+
+    --border: rgba(255,255,255,.09);
+}
+
+html {
+    background: var(--bg);
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 10% -5%,
+            rgba(45,140,255,.23),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 100% 15%,
+            rgba(237,59,59,.20),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            #07101f,
+            #091325
+        );
+
+    color: var(--white);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    padding-bottom:
+        calc(92px + env(safe-area-inset-bottom));
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    padding:
+        calc(14px + env(safe-area-inset-top))
+        17px
+        14px;
+
+    background:
+        rgba(7,16,31,.88);
+
+    backdrop-filter: blur(20px);
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.header-inner {
+    max-width: 700px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 1000;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--yellow);
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.add-top {
+    width: 44px;
+    height: 44px;
+
+    border: 0;
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--red2)
+        );
+
+    color: white;
+    font-size: 26px;
+    font-weight: 900;
+
+    box-shadow:
+        0 8px 22px rgba(237,59,59,.28);
+}
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    padding: 16px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* =====================================================
+   HERO CARD
+===================================================== */
+
+.hero-card {
+    position: relative;
+    overflow: hidden;
+
+    padding: 22px;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(45,140,255,.28),
+            rgba(237,59,59,.24)
+        ),
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.20);
+}
+
+.hero-card::before {
+    content: "★";
+
+    position: absolute;
+    right: -25px;
+    bottom: -55px;
+
+    font-size: 180px;
+
+    color:
+        rgba(255,255,255,.035);
+
+    transform: rotate(-15deg);
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    position: relative;
+    z-index: 2;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+
+    border-radius: 23px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--blue)
+        );
+
+    border:
+        3px solid rgba(255,255,255,.14);
+
+    font-size: 27px;
+    font-weight: 1000;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 1000;
+}
+
+.profile-team {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.level {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding:
+        5px 10px;
+
+    border-radius: 999px;
+
+    background: var(--yellow);
+    color: #111;
+
+    font-size: 10px;
+    font-weight: 1000;
+}
+
+/* =====================================================
+   SECTION TITLES
+===================================================== */
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin:
+        23px
+        2px
+        11px;
+}
+
+.section-title h2 {
+    margin: 0;
+
+    font-size: 19px;
+    font-weight: 1000;
+}
+
+.section-title button {
+    border: 0;
+    background: transparent;
+
+    color: var(--blue);
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stat-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.stat {
+    padding: 16px;
+
+    border-radius: 19px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+}
+
+.stat-icon {
+    font-size: 23px;
+}
+
+.stat-number {
+    margin-top: 5px;
+
+    font-size: 28px;
+    font-weight: 1000;
+}
+
+.stat-label {
+    margin-top: 2px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+/* =====================================================
+   NEXT MATCH
+===================================================== */
+
+.next-match {
+    padding: 18px;
+
+    border-radius: 21px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+}
+
+.next-top {
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.next-opponent {
+    text-align: center;
+
+    margin: 17px 0;
+}
+
+.next-vs {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.next-opponent-name {
+    margin-top: 3px;
+
+    font-size: 25px;
+    font-weight: 1000;
+}
+
+.next-info {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+/* =====================================================
+   MATCH CARD
+===================================================== */
+
+.match {
+    margin-bottom: 10px;
+
+    padding: 16px;
+
+    border-radius: 20px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+}
+
+.match-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.match-date {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.result {
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 9px;
+    font-weight: 1000;
+}
+
+.result.win {
+    color: var(--green);
+    background: rgba(55,217,138,.13);
+}
+
+.result.loss {
+    color: #ff6864;
+    background: rgba(237,59,59,.13);
+}
+
+.result.draw {
+    color: var(--yellow);
+    background: rgba(255,216,61,.13);
+}
+
+.result.future {
+    color: #67aaff;
+    background: rgba(45,140,255,.13);
+}
+
+.match-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 14px;
+}
+
+.match-team {
+    width: 35%;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.match-team small {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.score {
+    width: 30%;
+
+    text-align: center;
+
+    font-size: 27px;
+    font-weight: 1000;
+}
+
+.match-bottom {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 13px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.delete {
+    border: 0;
+    background: transparent;
+
+    color: #ff6763;
+
+    font-size: 11px;
+}
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-card {
+    margin-bottom: 12px;
+
+    padding: 18px;
+
+    border-radius: 22px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+}
+
+.form-title {
+    margin-bottom: 12px;
+
+    font-size: 18px;
+    font-weight: 1000;
+}
+
+label {
+    display: block;
+
+    margin-top: 12px;
+    margin-bottom: 6px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid var(--border);
+
+    background: var(--card2);
+
+    color: white;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--blue);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.two {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+}
+
+.three {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+.primary {
+    width: 100%;
+
+    padding: 16px;
+
+    margin-top: 8px;
+
+    border: 0;
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--red2)
+        );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: 1000;
+
+    box-shadow:
+        0 10px 25px rgba(237,59,59,.25);
+}
+
+/* =====================================================
+   CALENDAR
+===================================================== */
+
+.calendar {
+    padding: 15px;
+
+    border-radius: 22px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+}
+
+.calendar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+.calendar-head button {
+    width: 38px;
+    height: 38px;
+
+    border: 0;
+    border-radius: 12px;
+
+    background: var(--card2);
+
+    color: white;
+
+    font-size: 22px;
+}
+
+.calendar-month {
+    font-size: 18px;
+    font-weight: 1000;
+}
+
+.weekdays,
+.days {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 5px;
+}
+
+.weekdays div {
+    padding-bottom: 5px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.day {
+    position: relative;
+
+    min-height: 43px;
+
+    padding: 6px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    font-size: 11px;
+}
+
+.day.today {
+    border:
+        1px solid var(--yellow);
+}
+
+.day.has-match {
+    background:
+        rgba(45,140,255,.13);
+}
+
+.day.has-match::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 5px;
+    left: 50%;
+
+    width: 5px;
+    height: 5px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        var(--red);
+}
+
+/* =====================================================
+   BIG STATS
+===================================================== */
+
+.big-stat {
+    margin-bottom: 12px;
+
+    padding: 20px;
+
+    border-radius: 21px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+}
+
+.big-stat-header {
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.big-stat-header strong {
+    color: white;
+
+    font-size: 20px;
+}
+
+.progress {
+    height: 9px;
+
+    margin-top: 13px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: var(--card2);
+}
+
+.progress-bar {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--red)
+        );
+}
+
+/* =====================================================
+   CHART
+===================================================== */
+
+.chart-wrap {
+    overflow-x: auto;
+}
+
+.chart {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 7px;
+
+    height: 150px;
+
+    min-width: 250px;
+
+    padding:
+        10px
+        5px
+        25px;
+}
+
+.bar {
+    position: relative;
+
+    flex: 1;
+
+    min-width: 15px;
+
+    max-width: 50px;
+
+    border-radius:
+        7px
+        7px
+        2px
+        2px;
+
+    background:
+        linear-gradient(
+            to top,
+            var(--blue),
+            var(--red)
+        );
+}
+
+.bar-number {
+    position: absolute;
+
+    top: -18px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    color: white;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.bar-label {
+    position: absolute;
+
+    bottom: -21px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
+
+.achievements {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.achievement {
+    padding: 15px;
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+    opacity: .32;
+}
+
+.achievement.unlocked {
+    opacity: 1;
+
+    border-color:
+        rgba(255,216,61,.28);
+}
+
+.achievement-icon {
+    font-size: 28px;
+}
+
+.achievement-name {
+    margin-top: 6px;
+
+    font-size: 13px;
+    font-weight: 1000;
+}
+
+.achievement-text {
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+/* =====================================================
+   INFO
+===================================================== */
+
+.info-box {
+    margin-bottom: 10px;
+
+    padding: 17px;
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+}
+
+.info-box strong {
+    display: block;
+
+    margin-bottom: 4px;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.danger {
+    background:
+        rgba(237,59,59,.10);
+
+    border:
+        1px solid rgba(237,59,59,.18);
+
+    color: #ff6b67;
+}
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+    padding: 35px 15px;
+
+    text-align: center;
+
+    color: var(--muted);
+}
+
+.empty-icon {
+    margin-bottom: 7px;
+
+    font-size: 45px;
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom:
+        calc(
+            90px +
+            env(safe-area-inset-bottom)
+        );
+
+    z-index: 300;
+
+    transform:
+        translate(-50%, 20px);
+
+    padding:
+        12px
+        18px;
+
+    border-radius: 999px;
+
+    background: white;
+    color: #111;
+
+    font-size: 13px;
+    font-weight: 900;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .25s;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+}
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 200;
+
+    padding:
+        7px
+        9px
+        calc(
+            7px +
+            env(safe-area-inset-bottom)
+        );
+
+    background:
+        rgba(7,16,31,.95);
+
+    backdrop-filter: blur(22px);
+
+    border-top:
+        1px solid var(--border);
+}
+
+.nav-inner {
+    max-width: 700px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+}
+
+.nav-button {
+    border: 0;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    padding: 5px 2px;
+
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.nav-icon {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 21px;
+}
+
+.nav-button.active {
+    color: var(--yellow);
+}
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media (min-width: 700px) {
+
+    body {
+        padding-bottom: 20px;
+    }
+
+    .bottom-nav {
+        position: static;
+
+        max-width: 700px;
+
+        margin:
+            0 auto;
+
+        background: transparent;
+
+        border: 0;
+    }
+
+    .nav-inner {
+        border-radius: 20px;
+
+        background: var(--card);
+
+        border:
+            1px solid var(--border);
+    }
+
+}
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media (max-width: 360px) {
+
+    .app {
+        padding: 12px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+    }
+
+    .profile-name {
+        font-size: 21px;
+    }
+
+    .three {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div>
+
+            <div class="logo">
+                HOCKEY <span>HERO</span> 🏑
+            </div>
+
+            <div class="subtitle">
+                Jouw hockeyseizoen
+            </div>
+
+        </div>
+
+
+        <button
+            class="add-top"
+            onclick="showPage('add')">
+
+            +
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="app">
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+    id="home"
+    class="page active">
+
+
+    <div class="hero-card">
+
+        <div class="profile">
+
+            <div
+                class="avatar"
+                id="avatar">
+
+                🦸
+
+            </div>
+
+
+            <div>
+
+                <div
+                    class="profile-name"
+                    id="homeName">
+
+                    Hockey Hero
+
+                </div>
+
+
+                <div
+                    class="profile-team"
+                    id="homeTeam">
+
+                    Mijn team
+
+                </div>
+
+
+                <div
+                    class="level"
+                    id="homeLevel">
+
+                    HOCKEY ROOKIE
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div id="nextMatchContainer"></div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            Mijn seizoen
+        </h2>
+
+        <button
+            onclick="showPage('stats')">
+
+            Bekijk stats
+
+        </button>
+
+    </div>
+
+
+
+    <div class="stat-grid">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div
+                class="stat-number"
+                id="wins">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Gewonnen
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🥅
+            </div>
+
+            <div
+                class="stat-number"
+                id="teamGoals">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Team goals
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div
+                class="stat-number"
+                id="playerGoals">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Mijn goals
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🎯
+            </div>
+
+            <div
+                class="stat-number"
+                id="assists">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Assists
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            Laatste wedstrijden
+        </h2>
+
+        <button
+            onclick="showPage('calendar')">
+
+            Alles
+
+        </button>
+
+    </div>
+
+
+    <div id="recentMatches"></div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ADD MATCH
+===================================================== -->
+
+<section
+    id="add"
+    class="page">
+
+
+    <div class="section-title">
+
+        <h2>
+            🏑 Nieuwe wedstrijd
+        </h2>
+
+    </div>
+
+
+
+    <form id="matchForm">
+
+
+        <div class="form-card">
+
+            <div class="form-title">
+                🏑 Wedstrijd
+            </div>
+
+
+            <label>
+                Tegenstander
+            </label>
+
+            <input
+                id="opponent"
+                required
+                placeholder="Bijvoorbeeld: Oranje-Rood">
+
+
+            <div class="two">
+
+                <div>
+
+                    <label>
+                        Datum
+                    </label>
+
+                    <input
+                        id="date"
+                        type="date"
+                        required>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Tijd
+                    </label>
+
+                    <input
+                        id="time"
+                        type="time"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <label>
+                Locatie
+            </label>
+
+            <input
+                id="location"
+                placeholder="Bijvoorbeeld: Sportpark Zuid">
+
+
+            <div class="two">
+
+                <div>
+
+                    <label>
+                        Thuis / uit
+                    </label>
+
+                    <select id="homeAway">
+
+                        <option>
+                            Thuis
+                        </option>
+
+                        <option>
+                            Uit
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Resultaat
+                    </label>
+
+                    <select id="result">
+
+                        <option>
+                            Nog te spelen
+                        </option>
+
+                        <option>
+                            Gewonnen
+                        </option>
+
+                        <option>
+                            Verloren
+                        </option>
+
+                        <option>
+                            Gelijk
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="form-card">
+
+            <div class="form-title">
+                🥅 Score
+            </div>
+
+
+            <div class="three">
+
+                <div>
+
+                    <label>
+                        Ons team
+                    </label>
+
+                    <input
+                        id="teamScore"
+                        type="number"
+                        min="0"
+                        value="0">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Tegenstander
+                    </label>
+
+                    <input
+                        id="opponentScore"
+                        type="number"
+                        min="0"
+                        value="0">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Mijn goals
+                    </label>
+
+                    <input
+                        id="myGoals"
+                        type="number"
+                        min="0"
+                        value="0">
+
+                </div>
+
+            </div>
+
+
+            <label>
+                Mijn assists
+            </label>
+
+            <input
+                id="myAssists"
+                type="number"
+                min="0"
+                value="0">
+
+        </div>
+
+
+
+        <div class="form-card">
+
+            <div class="form-title">
+                ⭐ Extra
+            </div>
+
+
+            <label>
+                MVP / beste speler
+            </label>
+
+            <input
+                id="mvp"
+                placeholder="Bijvoorbeeld: Sophie">
+
+
+            <label>
+                Notitie
+            </label>
+
+            <textarea
+                id="note"
+                placeholder="Hoe ging de wedstrijd?"></textarea>
+
+        </div>
+
+
+
+        <button
+            class="primary"
+            type="submit">
+
+            🦸 Wedstrijd opslaan
+
+        </button>
+
+
+    </form>
+
+</section>
+
+
+
+<!-- =====================================================
+     CALENDAR
+===================================================== -->
+
+<section
+    id="calendar"
+    class="page">
+
+
+    <div class="section-title">
+
+        <h2>
+            📅 Agenda
+        </h2>
+
+        <button
+            onclick="showPage('add')">
+
+            + Wedstrijd
+
+        </button>
+
+    </div>
+
+
+
+    <div class="calendar">
+
+
+        <div class="calendar-head">
+
+            <button
+                onclick="changeMonth(-1)">
+
+                ‹
+
+            </button>
+
+
+            <div
+                class="calendar-month"
+                id="calendarMonth">
+
+            </div>
+
+
+            <button
+                onclick="changeMonth(1)">
+
+                ›
+
+            </button>
+
+        </div>
+
+
+
+        <div class="weekdays">
+
+            <div>MA</div>
+            <div>DI</div>
+            <div>WO</div>
+            <div>DO</div>
+            <div>VR</div>
+            <div>ZA</div>
+            <div>ZO</div>
+
+        </div>
+
+
+        <div
+            class="days"
+            id="calendarDays">
+
+        </div>
+
+    </div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            Alle wedstrijden
+        </h2>
+
+    </div>
+
+
+    <div id="allMatches"></div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section
+    id="stats"
+    class="page">
+
+
+    <div class="section-title">
+
+        <h2>
+            📊 Statistieken
+        </h2>
+
+    </div>
+
+
+
+    <div class="big-stat">
+
+        <div class="big-stat-header">
+
+            <span>
+                Wedstrijden gespeeld
+            </span>
+
+            <strong id="statMatches">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="matchProgress"
+                style="width:0%">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="stat-grid">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <div
+                class="stat-number"
+                id="statWins">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Wins
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ❌
+            </div>
+
+            <div
+                class="stat-number"
+                id="statLosses">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Verlies
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🤝
+            </div>
+
+            <div
+                class="stat-number"
+                id="statDraws">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Gelijk
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📈
+            </div>
+
+            <div
+                class="stat-number"
+                id="winPercentage">
+
+                0%
+
+            </div>
+
+            <div class="stat-label">
+                Winpercentage
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            🥅 Goals & assists
+        </h2>
+
+    </div>
+
+
+
+    <div class="stat-grid">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🥅
+            </div>
+
+            <div
+                class="stat-number"
+                id="statTeamGoals">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Team goals
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div
+                class="stat-number"
+                id="statMyGoals">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Mijn goals
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🎯
+            </div>
+
+            <div
+                class="stat-number"
+                id="statAssists">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Assists
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ⚡
+            </div>
+
+            <div
+                class="stat-number"
+                id="goalAverage">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                Team goals / wedstrijd
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            📈 Mijn goals per wedstrijd
+        </h2>
+
+    </div>
+
+
+    <div class="big-stat">
+
+        <div class="chart-wrap">
+
+            <div
+                class="chart"
+                id="goalChart">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            🔥 Mijn vorm
+        </h2>
+
+    </div>
+
+
+    <div
+        class="info-box"
+        id="formText">
+
+        Nog geen wedstrijden gespeeld.
+
+    </div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            🦸 Mijn level
+        </h2>
+
+    </div>
+
+
+    <div
+        class="hero-card"
+        id="levelCard">
+
+    </div>
+
+
+
+    <div class="section-title">
+
+        <h2>
+            🏅 Achievements
+        </h2>
+
+    </div>
+
+
+    <div
+        class="achievements"
+        id="achievements">
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
+<section
+    id="profilePage"
+    class="page">
+
+
+    <div class="section-title">
+
+        <h2>
+            👤 Mijn profiel
+        </h2>
+
+    </div>
+
+
+
+    <div class="form-card">
+
+        <div class="form-title">
+            🦸 Speler
+        </div>
+
+
+        <label>
+            Naam
+        </label>
+
+        <input
+            id="profileName"
+            placeholder="Jouw naam">
+
+
+        <label>
+            Teamnaam
+        </label>
+
+        <input
+            id="profileTeam"
+            placeholder="Mijn team">
+
+
+        <label>
+            Rugnummer
+        </label>
+
+        <input
+            id="profileNumber"
+            type="number"
+            min="0"
+            max="99"
+            placeholder="10">
+
+
+        <button
+            class="primary"
+            onclick="saveProfile()">
+
+            💾 Profiel opslaan
+
+        </button>
+
+    </div>
+
+
+
+    <div class="info-box">
+
+        <strong>
+            🏑 Hockey Hero
+        </strong>
+
+        <div class="muted">
+            Je gegevens worden automatisch
+            op dit apparaat opgeslagen.
+        </div>
+
+    </div>
+
+
+
+    <button
+        class="primary danger"
+        onclick="clearEverything()">
+
+        🗑️ Alle gegevens wissen
+
+    </button>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
+<nav class="bottom-nav">
+
+    <div class="nav-inner">
+
+
+        <button
+            class="nav-button active"
+            data-page="home"
+            onclick="showPage('home')">
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            HOME
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-page="add"
+            onclick="showPage('add')">
+
+            <span class="nav-icon">
+                🏑
+            </span>
+
+            TOEVOEGEN
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-page="calendar"
+            onclick="showPage('calendar')">
+
+            <span class="nav-icon">
+                📅
+            </span>
+
+            AGENDA
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            data-page="stats"
+            onclick="showPage('stats')">
+
+            <span class="nav-icon">
+                📊
+            </span>
+
+            STATS
+
+        </button>
+
+
+    </div>
+
+</nav>
+
+
+
+<div
+    class="toast"
+    id="toast">
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let matches =
+    JSON.parse(
+        localStorage.getItem(
+            "hockeyHeroMatches"
+        ) || "[]"
+    );
+
+
+let profile =
+    JSON.parse(
+        localStorage.getItem(
+            "hockeyHeroProfile"
+        )
+        ||
+        `{
+            "name":"Hockey Hero",
+            "team":"Mijn team",
+            "number":""
+        }`
+    );
+
+
+let currentMonth =
+    new Date().getMonth();
+
+let currentYear =
+    new Date().getFullYear();
+
+
+/* =====================================================
+   OPSLAAN
+===================================================== */
+
+function saveMatches() {
+
+    localStorage.setItem(
+        "hockeyHeroMatches",
+        JSON.stringify(matches)
+    );
+
+}
+
+
+function saveProfileData() {
+
+    localStorage.setItem(
+        "hockeyHeroProfile",
+        JSON.stringify(profile)
+    );
+
+}
+
+
+/* =====================================================
+   VEILIG TEKST WEERGEVEN
+===================================================== */
+
+function escapeHTML(text) {
+
+    return String(text || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   DATUM
+===================================================== */
+
+function formatDate(dateString) {
+
+    if (!dateString)
+        return "";
+
+    const d =
+        new Date(
+            dateString + "T12:00:00"
+        );
+
+    return d.toLocaleDateString(
+        "nl-NL",
+        {
+            weekday:"short",
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   NAVIGATIE
+===================================================== */
+
+function showPage(page) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            p =>
+                p.classList.remove(
+                    "active"
+                )
+        );
+
+
+    const target =
+        document.getElementById(page);
+
+    if (target)
+        target.classList.add(
+            "active"
+        );
+
+
+    document
+        .querySelectorAll(".nav-button")
+        .forEach(
+            button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.page === page
+                );
+
+            }
+        );
+
+
+    if (page === "home")
+        renderHome();
+
+    if (page === "calendar")
+        renderCalendar();
+
+    if (page === "stats")
+        renderStats();
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   PROFIEL
+===================================================== */
+
+function loadProfile() {
+
+    document.getElementById(
+        "profileName"
+    ).value =
+        profile.name || "";
+
+
+    document.getElementById(
+        "profileTeam"
+    ).value =
+        profile.team || "";
+
+
+    document.getElementById(
+        "profileNumber"
+    ).value =
+        profile.number || "";
+
+}
+
+
+function saveProfile() {
+
+    profile.name =
+        document
+            .getElementById(
+                "profileName"
+            )
+            .value
+            .trim()
+        ||
+        "Hockey Hero";
+
+
+    profile.team =
+        document
+            .getElementById(
+                "profileTeam"
+            )
+            .value
+            .trim()
+        ||
+        "Mijn team";
+
+
+    profile.number =
+        document
+            .getElementById(
+                "profileNumber"
+            )
+            .value
+            .trim();
+
+
+    saveProfileData();
+
+    renderHome();
+
+    toast(
+        "Profiel opgeslagen! 🦸"
+    );
+
+}
+
+
+/* =====================================================
+   STATS BEREKENEN
+===================================================== */
+
+function getPlayed() {
+
+    return matches.filter(
+        m =>
+            m.result !==
+            "Nog te spelen"
+    );
+
+}
+
+
+function getStats() {
+
+    const played =
+        getPlayed();
+
+
+    const wins =
+        played.filter(
+            m =>
+                m.result ===
+                "Gewonnen"
+        ).length;
+
+
+    const losses =
+        played.filter(
+            m =>
+                m.result ===
+                "Verloren"
+        ).length;
+
+
+    const draws =
+        played.filter(
+            m =>
+                m.result ===
+                "Gelijk"
+        ).length;
+
+
+    const teamGoals =
+        played.reduce(
+            (total,m) =>
+                total +
+                Number(
+                    m.teamScore || 0
+                ),
+            0
+        );
+
+
+    const opponentGoals =
+        played.reduce(
+            (total,m) =>
+                total +
+                Number(
+                    m.opponentScore || 0
+                ),
+            0
+        );
+
+
+    const myGoals =
+        played.reduce(
+            (total,m) =>
+                total +
+                Number(
+                    m.myGoals || 0
+                ),
+            0
+        );
+
+
+    const assists =
+        played.reduce(
+            (total,m) =>
+                total +
+                Number(
+                    m.assists || 0
+                ),
+            0
+        );
+
+
+    const winPercentage =
+        played.length
+        ?
+        Math.round(
+            wins /
+            played.length *
+            100
+        )
+        :
+        0;
+
+
+    return {
+        played,
+        wins,
+        losses,
+        draws,
+        teamGoals,
+        opponentGoals,
+        myGoals,
+        assists,
+        winPercentage
+    };
+
+}
+
+
+/* =====================================================
+   LEVEL
+===================================================== */
+
+function getLevel(goals) {
+
+    if (goals >= 40)
+        return {
+            name:"ULTIMATE HOCKEY HERO",
+            icon:"👑",
+            next:null,
+            needed:0
+        };
+
+
+    if (goals >= 20)
+        return {
+            name:"HOCKEY LEGEND",
+            icon:"👑",
+            next:"ULTIMATE HOCKEY HERO",
+            needed:40-goals
+        };
+
+
+    if (goals >= 10)
+        return {
+            name:"SUPER STRIKER",
+            icon:"💥",
+            next:"HOCKEY LEGEND",
+            needed:20-goals
+        };
+
+
+    if (goals >= 5)
+        return {
+            name:"HOCKEY HERO",
+            icon:"🦸",
+            next:"SUPER STRIKER",
+            needed:10-goals
+        };
+
+
+    return {
+        name:"HOCKEY ROOKIE",
+        icon:"🏑",
+        next:"HOCKEY HERO",
+        needed:5-goals
+    };
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function renderHome() {
+
+    const s =
+        getStats();
+
+
+    document.getElementById(
+        "homeName"
+    ).textContent =
+        profile.name;
+
+
+    document.getElementById(
+        "homeTeam"
+    ).textContent =
+        profile.team +
+        (
+            profile.number
+            ?
+            " • #" +
+            profile.number
+            :
+            ""
+        );
+
+
+    const level =
+        getLevel(
+            s.myGoals
+        );
+
+
+    document.getElementById(
+        "homeLevel"
+    ).textContent =
+        level.name;
+
+
+    document.getElementById(
+        "avatar"
+    ).textContent =
+        profile.number
+        ?
+        profile.number
+        :
+        level.icon;
+
+
+    document.getElementById(
+        "wins"
+    ).textContent =
+        s.wins;
+
+
+    document.getElementById(
+        "teamGoals"
+    ).textContent =
+        s.teamGoals;
+
+
+    document.getElementById(
+        "playerGoals"
+    ).textContent =
+        s.myGoals;
+
+
+    document.getElementById(
+        "assists"
+    ).textContent =
+        s.assists;
+
+
+    renderNextMatch();
+    renderRecentMatches();
+
+}
+
+
+/* =====================================================
+   VOLGENDE WEDSTRIJD
+===================================================== */
+
+function renderNextMatch() {
+
+    const now =
+        new Date();
+
+
+    const upcoming =
+        matches
+            .filter(
+                m =>
+                    new Date(
+                        m.date +
+                        "T" +
+                        (
+                            m.time ||
+                            "00:00"
+                        )
+                    ) >= now
+                    &&
+                    m.result ===
+                    "Nog te spelen"
+            )
+            .sort(
+                (a,b) =>
+                    new Date(
+                        a.date +
+                        "T" +
+                        (
+                            a.time ||
+                            "00:00"
+                        )
+                    )
+                    -
+                    new Date(
+                        b.date +
+                        "T" +
+                        (
+                            b.time ||
+                            "00:00"
+                        )
+                    )
+            );
+
+
+    const container =
+        document.getElementById(
+            "nextMatchContainer"
+        );
+
+
+    if (!upcoming.length) {
+
+        container.innerHTML =
+            "";
+
+        return;
+
+    }
+
+
+    const m =
+        upcoming[0];
+
+
+    container.innerHTML = `
+
+        <div class="section-title">
+
+            <h2>
+                ⚡ Volgende wedstrijd
+            </h2>
+
+        </div>
+
+
+        <div class="next-match">
+
+            <div class="next-top">
+
+                <span>
+                    ${formatDate(m.date)}
+                </span>
+
+                <span>
+                    ${escapeHTML(m.homeAway)}
+                </span>
+
+            </div>
+
+
+            <div class="next-opponent">
+
+                <div class="next-vs">
+                    TEGEN
+                </div>
+
+                <div class="next-opponent-name">
+                    ${escapeHTML(m.opponent)}
+                </div>
+
+            </div>
+
+
+            <div class="next-info">
+
+                <span>
+                    🕐 ${escapeHTML(m.time || "-")}
+                </span>
+
+                <span>
+                    📍 ${escapeHTML(m.location || "-")}
+                </span>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   MATCH HTML
+===================================================== */
+
+function matchHTML(m) {
+
+    let resultClass =
+        "future";
+
+
+    if (m.result === "Gewonnen")
+        resultClass =
+            "win";
+
+
+    if (m.result === "Verloren")
+        resultClass =
+            "loss";
+
+
+    if (m.result === "Gelijk")
+        resultClass =
+            "draw";
+
+
+    const score =
+        m.result === "Nog te spelen"
+        ?
+        "VS"
+        :
+        `${m.teamScore} – ${m.opponentScore}`;
+
+
+    return `
+
+        <div class="match">
+
+
+            <div class="match-top">
+
+                <div class="match-date">
+
+                    ${formatDate(m.date)}
+
+                    ${
+                        m.time
+                        ?
+                        " • " +
+                        escapeHTML(m.time)
+                        :
+                        ""
+                    }
+
+                </div>
+
+
+                <div
+                    class="result ${resultClass}">
+
+                    ${escapeHTML(m.result)}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="match-main">
+
+
+                <div class="match-team">
+
+                    <strong>
+                        ${escapeHTML(profile.team)}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        ${escapeHTML(m.homeAway)}
+                    </small>
+
+                </div>
+
+
+
+                <div class="score">
+
+                    ${score}
+
+                </div>
+
+
+
+                <div class="match-team">
+
+                    <strong>
+                        ${escapeHTML(m.opponent)}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        🏑
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="match-bottom">
+
+                <span>
+
+                    ⭐ ${m.myGoals || 0}
+
+                    &nbsp;&nbsp;
+
+                    🎯 ${m.assists || 0}
+
+                </span>
+
+
+                <button
+                    class="delete"
+                    onclick="deleteMatch('${m.id}')">
+
+                    Verwijderen
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   RECENTE WEDSTRIJDEN
+===================================================== */
+
+function renderRecentMatches() {
+
+    const container =
+        document.getElementById(
+            "recentMatches"
+        );
+
+
+    if (!matches.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🏑
+                </div>
+
+                Nog geen wedstrijden.
+                <br>
+                Voeg je eerste wedstrijd toe!
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const sorted =
+        [...matches]
+            .sort(
+                (a,b) =>
+                    new Date(
+                        b.date +
+                        "T" +
+                        (
+                            b.time ||
+                            "00:00"
+                        )
+                    )
+                    -
+                    new Date(
+                        a.date +
+                        "T" +
+                        (
+                            a.time ||
+                            "00:00"
+                        )
+                    )
+            )
+            .slice(0,5);
+
+
+    container.innerHTML =
+        sorted
+            .map(matchHTML)
+            .join("");
+
+}
+
+
+/* =====================================================
+   WEDSTRIJD TOEVOEGEN
+===================================================== */
+
+document
+    .getElementById(
+        "matchForm"
+    )
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const match = {
+
+                id:
+                    Date.now()
+                    .toString(),
+
+                opponent:
+                    document
+                        .getElementById(
+                            "opponent"
+                        )
+                        .value
+                        .trim(),
+
+                date:
+                    document
+                        .getElementById(
+                            "date"
+                        )
+                        .value,
+
+                time:
+                    document
+                        .getElementById(
+                            "time"
+                        )
+                        .value,
+
+                location:
+                    document
+                        .getElementById(
+                            "location"
+                        )
+                        .value
+                        .trim(),
+
+                homeAway:
+                    document
+                        .getElementById(
+                            "homeAway"
+                        )
+                        .value,
+
+                result:
+                    document
+                        .getElementById(
+                            "result"
+                        )
+                        .value,
+
+                teamScore:
+                    Number(
+                        document
+                            .getElementById(
+                                "teamScore"
+                            )
+                            .value ||
+                        0
+                    ),
+
+                opponentScore:
+                    Number(
+                        document
+                            .getElementById(
+                                "opponentScore"
+                            )
+                            .value ||
+                        0
+                    ),
+
+                myGoals:
+                    Number(
+                        document
+                            .getElementById(
+                                "myGoals"
+                            )
+                            .value ||
+                        0
+                    ),
+
+                assists:
+                    Number(
+                        document
+                            .getElementById(
+                                "myAssists"
+                            )
+                            .value ||
+                        0
+                    ),
+
+                mvp:
+                    document
+                        .getElementById(
+                            "mvp"
+                        )
+                        .value
+                        .trim(),
+
+                note:
+                    document
+                        .getElementById(
+                            "note"
+                        )
+                        .value
+                        .trim()
+
+            };
+
+
+            matches.push(match);
+
+            saveMatches();
+
+
+            this.reset();
+
+
+            document.getElementById(
+                "teamScore"
+            ).value = 0;
+
+
+            document.getElementById(
+                "opponentScore"
+            ).value = 0;
+
+
+            document.getElementById(
+                "myGoals"
+            ).value = 0;
+
+
+            document.getElementById(
+                "myAssists"
+            ).value = 0;
+
+
+            toast(
+                "Wedstrijd opgeslagen! 🏑"
+            );
+
+
+            renderHome();
+            renderCalendar();
+            renderStats();
+
+
+            setTimeout(
+                () =>
+                    showPage("home"),
+                400
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   WEDSTRIJD VERWIJDEREN
+===================================================== */
+
+function deleteMatch(id) {
+
+    if (
+        !confirm(
+            "Wil je deze wedstrijd verwijderen?"
+        )
+    )
+        return;
+
+
+    matches =
+        matches.filter(
+            m =>
+                m.id !== id
+        );
+
+
+    saveMatches();
+
+
+    renderHome();
+    renderCalendar();
+    renderStats();
+
+
+    toast(
+        "Wedstrijd verwijderd"
+    );
+
+}
+
+
+/* =====================================================
+   KALENDER
+===================================================== */
+
+function changeMonth(amount) {
+
+    currentMonth += amount;
+
+
+    if (currentMonth < 0) {
+
+        currentMonth = 11;
+        currentYear--;
+
+    }
+
+
+    if (currentMonth > 11) {
+
+        currentMonth = 0;
+        currentYear++;
+
+    }
+
+
+    renderCalendar();
+
+}
+
+
+function renderCalendar() {
+
+    const months = [
+
+        "januari",
+        "februari",
+        "maart",
+        "april",
+        "mei",
+        "juni",
+        "juli",
+        "augustus",
+        "september",
+        "oktober",
+        "november",
+        "december"
+
+    ];
+
+
+    document.getElementById(
+        "calendarMonth"
+    ).textContent =
+        months[currentMonth]
+        +
+        " "
+        +
+        currentYear;
+
+
+    const first =
+        new Date(
+            currentYear,
+            currentMonth,
+            1
+        );
+
+
+    const last =
+        new Date(
+            currentYear,
+            currentMonth + 1,
+            0
+        );
+
+
+    let startDay =
+        first.getDay();
+
+
+    startDay =
+        startDay === 0
+        ?
+        6
+        :
+        startDay - 1;
+
+
+    const container =
+        document.getElementById(
+            "calendarDays"
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    for (
+        let i = 0;
+        i < startDay;
+        i++
+    ) {
+
+        const blank =
+            document.createElement(
+                "div"
+            );
+
+        blank.className =
+            "day";
+
+        blank.style.opacity =
+            "0";
+
+        container.appendChild(
+            blank
+        );
+
+    }
+
+
+    const today =
+        new Date();
+
+
+    for (
+        let day = 1;
+        day <= last.getDate();
+        day++
+    ) {
+
+        const date =
+            new Date(
+                currentYear,
+                currentMonth,
+                day
+            );
+
+
+        const dateString =
+            `${currentYear}-${
+                String(
+                    currentMonth + 1
+                ).padStart(2,"0")
+            }-${
+                String(day)
+                    .padStart(2,"0")
+            }`;
+
+
+        const element =
+            document.createElement(
+                "div"
+            );
+
+
+        element.className =
+            "day";
+
+
+        if (
+            day === today.getDate()
+            &&
+            currentMonth === today.getMonth()
+            &&
+            currentYear === today.getFullYear()
+        ) {
+
+            element.classList.add(
+                "today"
+            );
+
+        }
+
+
+        const dayMatches =
+            matches.filter(
+                m =>
+                    m.date ===
+                    dateString
+            );
+
+
+        if (
+            dayMatches.length
+        ) {
+
+            element.classList.add(
+                "has-match"
+            );
+
+
+            element.onclick =
+                () => {
+
+                    alert(
+                        dayMatches
+                            .map(
+                                m =>
+                                    `${m.time || ""}
+                                     ${m.opponent}
+                                     •
+                                     ${m.result}`
+                            )
+                            .join("\n")
+                    );
+
+                };
+
+        }
+
+
+        element.innerHTML = `
+
+            <div class="day-number">
+                ${day}
+            </div>
+
+        `;
+
+
+        container.appendChild(
+            element
+        );
+
+    }
+
+
+    renderAllMatches();
+
+}
+
+
+/* =====================================================
+   ALLE WEDSTRIJDEN
+===================================================== */
+
+function renderAllMatches() {
+
+    const container =
+        document.getElementById(
+            "allMatches"
+        );
+
+
+    if (!matches.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📅
+                </div>
+
+                Nog geen wedstrijden.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const sorted =
+        [...matches]
+            .sort(
+                (a,b) =>
+                    new Date(
+                        a.date +
+                        "T" +
+                        (
+                            a.time ||
+                            "00:00"
+                        )
+                    )
+                    -
+                    new Date(
+                        b.date +
+                        "T" +
+                        (
+                            b.time ||
+                            "00:00"
+                        )
+                    )
+            );
+
+
+    container.innerHTML =
+        sorted
+            .map(matchHTML)
+            .join("");
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function renderStats() {
+
+    const s =
+        getStats();
+
+
+    document.getElementById(
+        "statMatches"
+    ).textContent =
+        s.played.length;
+
+
+    document.getElementById(
+        "statWins"
+    ).textContent =
+        s.wins;
+
+
+    document.getElementById(
+        "statLosses"
+    ).textContent =
+        s.losses;
+
+
+    document.getElementById(
+        "statDraws"
+    ).textContent =
+        s.draws;
+
+
+    document.getElementById(
+        "winPercentage"
+    ).textContent =
+        s.winPercentage +
+        "%";
+
+
+    document.getElementById(
+        "statTeamGoals"
+    ).textContent =
+        s.teamGoals;
+
+
+    document.getElementById(
+        "statMyGoals"
+    ).textContent =
+        s.myGoals;
+
+
+    document.getElementById(
+        "statAssists"
+    ).textContent =
+        s.assists;
+
+
+    document.getElementById(
+        "goalAverage"
+    ).textContent =
+        s.played.length
+        ?
+        (
+            s.teamGoals /
+            s.played.length
+        ).toFixed(1)
+        :
+        "0";
+
+
+    document.getElementById(
+        "matchProgress"
+    ).style.width =
+        Math.min(
+            s.played.length * 10,
+            100
+        ) +
+        "%";
+
+
+    renderGoalChart();
+    renderForm();
+    renderLevel();
+    renderAchievements();
+
+}
+
+
+/* =====================================================
+   GOAL GRAFIEK
+===================================================== */
+
+function renderGoalChart() {
+
+    const container =
+        document.getElementById(
+            "goalChart"
+        );
+
+
+    const played =
+        getPlayed()
+            .slice(-10);
+
+
+    if (!played.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+                Nog geen goals om te tonen.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const max =
+        Math.max(
+            ...played.map(
+                m =>
+                    Number(
+                        m.myGoals || 0
+                    )
+            ),
+            1
+        );
+
+
+    container.innerHTML =
+        played
+            .map(
+                (m,index) => {
+
+                    const goals =
+                        Number(
+                            m.myGoals || 0
+                        );
+
+
+                    const height =
+                        Math.max(
+                            7,
+                            goals /
+                            max *
+                            100
+                        );
+
+
+                    return `
+
+                        <div
+                            class="bar"
+                            style="
+                                height:${height}%;
+                            ">
+
+                            <span
+                                class="bar-number">
+
+                                ${goals}
+
+                            </span>
+
+                            <span
+                                class="bar-label">
+
+                                ${index + 1}
+
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   VORM
+===================================================== */
+
+function renderForm() {
+
+    const played =
+        getPlayed()
+            .slice(-5);
+
+
+    const element =
+        document.getElementById(
+            "formText"
+        );
+
+
+    if (!played.length) {
+
+        element.textContent =
+            "Nog geen wedstrijden gespeeld.";
+
+        return;
+
+    }
+
+
+    const symbols =
+        played.map(
+            m => {
+
+                if (
+                    m.result ===
+                    "Gewonnen"
+                )
+                    return "🟢";
+
+                if (
+                    m.result ===
+                    "Verloren"
+                )
+                    return "🔴";
+
+                return "🟡";
+
+            }
+        );
+
+
+    const wins =
+        played.filter(
+            m =>
+                m.result ===
+                "Gewonnen"
+        ).length;
+
+
+    const goals =
+        played.reduce(
+            (sum,m) =>
+                sum +
+                Number(
+                    m.myGoals || 0
+                ),
+            0
+        );
+
+
+    element.innerHTML = `
+
+        <strong
+            style="
+                font-size:24px;
+            ">
+
+            ${symbols.join(" ")}
+
+        </strong>
+
+        <br><br>
+
+        Je won
+        <strong>
+            ${wins}
+        </strong>
+        van je laatste
+        <strong>
+            ${played.length}
+        </strong>
+        wedstrijden.
+
+        <br><br>
+
+        Je scoorde daarin
+        <strong>
+            ${goals}
+        </strong>
+        persoonlijke goals.
+
+    `;
+
+}
+
+
+/* =====================================================
+   LEVEL CARD
+===================================================== */
+
+function renderLevel() {
+
+    const s =
+        getStats();
+
+
+    const level =
+        getLevel(
+            s.myGoals
+        );
+
+
+    const progress =
+        level.next
+        ?
+        Math.max(
+            0,
+            Math.min(
+                100,
+                (
+                    (
+                        (
+                            level.name ===
+                            "HOCKEY ROOKIE"
+                            ? 5
+                            :
+                            level.name ===
+                            "HOCKEY HERO"
+                            ? 10
+                            :
+                            level.name ===
+                            "SUPER STRIKER"
+                            ? 20
+                            :
+                            40
+                        )
+                        -
+                        level.needed
+                    )
+                    /
+                    (
+                        level.name ===
+                        "HOCKEY ROOKIE"
+                        ? 5
+                        :
+                        level.name ===
+                        "HOCKEY HERO"
+                        ? 5
+                        :
+                        level.name ===
+                        "SUPER STRIKER"
+                        ? 10
+                        :
+                        20
+                    )
+                )
+                * 100
+            )
+        )
+        :
+        100;
+
+
+    document.getElementById(
+        "levelCard"
+    ).innerHTML = `
+
+        <div
+            style="
+                font-size:42px;
+            ">
+
+            ${level.icon}
+
+        </div>
+
+
+        <div
+            style="
+                margin-top:6px;
+                font-size:21px;
+                font-weight:1000;
+            ">
+
+            ${level.name}
+
+        </div>
+
+
+        <div
+            style="
+                margin-top:5px;
+                color:var(--muted);
+                font-size:12px;
+            ">
+
+            ${s.myGoals}
+            persoonlijke goals
+
+        </div>
+
+
+        ${
+            level.next
+            ?
+            `
+
+                <div
+                    style="
+                        margin-top:15px;
+                        color:var(--muted);
+                        font-size:11px;
+                    ">
+
+                    Nog
+                    <strong>
+                        ${level.needed}
+                    </strong>
+                    goal(s) tot
+                    ${level.next}
+
+                </div>
+
+            `
+            :
+            `
+
+                <div
+                    style="
+                        margin-top:15px;
+                        color:var(--yellow);
+                        font-weight:900;
+                    ">
+
+                    👑 Maximum level bereikt!
+
+                </div>
+
+            `
+        }
+
+    `;
+
+}
+
+
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
+
+function renderAchievements() {
+
+    const s =
+        getStats();
+
+
+    const achievements = [
+
+        {
+            icon:"🏑",
+            name:"Eerste missie",
+            text:"Speel je eerste wedstrijd.",
+            unlocked:
+                s.played.length >= 1
+        },
+
+        {
+            icon:"🏆",
+            name:"Eerste overwinning",
+            text:"Win je eerste wedstrijd.",
+            unlocked:
+                s.wins >= 1
+        },
+
+        {
+            icon:"⭐",
+            name:"Goal Hero",
+            text:"Scoor je eerste goal.",
+            unlocked:
+                s.myGoals >= 1
+        },
+
+        {
+            icon:"🔥",
+            name:"Super Striker",
+            text:"Scoor 5 goals.",
+            unlocked:
+                s.myGoals >= 5
+        },
+
+        {
+            icon:"💥",
+            name:"Goal Machine",
+            text:"Scoor 10 goals.",
+            unlocked:
+                s.myGoals >= 10
+        },
+
+        {
+            icon:"🎯",
+            name:"Assist Hero",
+            text:"Geef 5 assists.",
+            unlocked:
+                s.assists >= 5
+        },
+
+        {
+            icon:"🏅",
+            name:"Team Player",
+            text:"Speel 10 wedstrijden.",
+            unlocked:
+                s.played.length >= 10
+        },
+
+        {
+            icon:"👑",
+            name:"Hockey Legend",
+            text:"Scoor 20 goals.",
+            unlocked:
+                s.myGoals >= 20
+        },
+
+        {
+            icon:"🚀",
+            name:"Super Seizoen",
+            text:"Speel 25 wedstrijden.",
+            unlocked:
+                s.played.length >= 25
+        },
+
+        {
+            icon:"🌟",
+            name:"Ultimate Hero",
+            text:"Scoor 40 goals.",
+            unlocked:
+                s.myGoals >= 40
+        }
+
+    ];
+
+
+    document.getElementById(
+        "achievements"
+    ).innerHTML =
+
+        achievements
+            .map(
+                a => `
+
+                    <div
+                        class="
+                            achievement
+                            ${
+                                a.unlocked
+                                ?
+                                "unlocked"
+                                :
+                                ""
+                            }
+                        ">
+
+                        <div
+                            class="achievement-icon">
+
+                            ${a.icon}
+
+                        </div>
+
+                        <div
+                            class="achievement-name">
+
+                            ${a.name}
+
+                        </div>
+
+                        <div
+                            class="achievement-text">
+
+                            ${
+                                a.unlocked
+                                ?
+                                "✓ Behaald!"
+                                :
+                                a.text
+                            }
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   ALLES WISSEN
+===================================================== */
+
+function clearEverything() {
+
+    if (
+        !confirm(
+            "Weet je zeker dat je alle Hockey Hero-gegevens wilt wissen?"
+        )
+    )
+        return;
+
+
+    localStorage.removeItem(
+        "hockeyHeroMatches"
+    );
+
+    localStorage.removeItem(
+        "hockeyHeroProfile"
+    );
+
+
+    matches = [];
+
+
+    profile = {
+        name:"Hockey Hero",
+        team:"Mijn team",
+        number:""
+    };
+
+
+    loadProfile();
+
+    renderHome();
+    renderCalendar();
+    renderStats();
+
+
+    toast(
+        "Alles is gewist"
+    );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+
+function toast(message) {
+
+    const element =
+        document.getElementById(
+            "toast"
+        );
+
+
+    element.textContent =
+        message;
+
+
+    element.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                element.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadProfile();
+
+renderHome();
+
+renderCalendar();
+
+renderStats();
+
+</script>
+
+</body>
+</html>
